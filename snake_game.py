@@ -1,14 +1,15 @@
 import turtle
 import time
+import random
 
 delay = 0.1
 
 #ovo je pocetan screen
-sg = turtle.Screen()
-sg.title("Igra zmi'ce od MENE    (@Ja)")
-sg.bgcolor("green")
-sg.setup(width=1600, height=1600)
-sg.tracer(0)
+wn = turtle.Screen()
+wn.title("Igra zmi'ce od MENE    (@Ja)")
+wn.bgcolor("purple")
+wn.setup(width=600, height=600)
+wn.tracer(0)
 
 
 #zmijina glava
@@ -19,7 +20,17 @@ head.shape("square")
 head.color("black")
 head.penup()
 head.goto(0,0)
-head.direction = "up"
+head.direction = "stop"
+
+#snake food (hrana zmije)
+
+food = turtle.Turtle()
+food.speed(0)
+food.shape("circle")
+food.color("red")
+food.penup()
+food.goto(0,100)
+
 
 
 #funkcije
@@ -39,39 +50,42 @@ def go_right():
 
 def move():
     if head.direction == "up":
-        y = head.yorc()
+        y = head.ycor()
         head.sety(y + 20)
 
-def move():
+
     if head.direction == "down":
-        y = head.yorc()
+        y = head.ycor()
         head.sety(y - 20)
 
-def move():
-    if head.direction == "left":
-        x = head.xorc()
-        head.sety(x - 20)
 
-def move():
+    if head.direction == "left":
+        x = head.xcor()
+        head.setx(x - 20)
+
+
     if head.direction == "right":
-        x = head.xorc()
-        head.sety(x  + 20)
+        x = head.xcor()
+        head.setx(x  + 20)
 
 #kljucevi za mrdanje
-sg.listen()
-sg.onkeypress(go_up, "w")
-sg.onkeypress(go_down, "s")
-sg.onkeypress(go_left, "a")
-sg.onkeypress(go_right, "d")
+wn.listen()
+wn.onkeypress(go_up, "w")
+wn.onkeypress(go_down, "s")
+wn.onkeypress(go_left, "a")
+wn.onkeypress(go_right, "d")
 
 #loop glavne igre
 while True:
-    sg.update()
+    wn.update()
+
+    if head.distance (food) < 20:
+        #move the food to a random spot
+        x = random.randint(-290,-290)
+        y = random.randint(-290,-290)
+        food.goto(x,y)
 
     move()
 
     time.sleep(delay)
-
-sg.mainloop()
-
-
+wn.mainloop()
